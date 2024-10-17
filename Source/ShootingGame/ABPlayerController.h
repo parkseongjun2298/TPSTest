@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "ShootingGame.h"
 #include "GameFramework/PlayerController.h"
 #include "ABPlayerController.generated.h"
 
@@ -14,4 +14,11 @@ class SHOOTINGGAME_API AABPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void PostInitializeComponents()override;
+	virtual void OnPossess(APawn* aPawn)override;
+
+protected:
+	virtual void BeginPlay()override;
+
 };

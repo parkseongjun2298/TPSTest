@@ -32,8 +32,14 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
 	UCameraComponent* Camera;
+
+	bool bAttackMode = false;
 private:
 		void UpDown(float Axis);
 		void RightLeft(float Axis);
-
+		void LookUp(float Axis);
+		void Turn(float Axis);
+		void NormalAttackStart();
+		void NormalAttackEnd();
+		
 };
