@@ -20,6 +20,7 @@ void UABAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	{
 		AttackMode = Player->bAttackMode;
 		Speed = Player->GetVelocity().Size();
+		IsInAir = Player->GetCharacterMovement()->IsFalling();
 	}
 
 }

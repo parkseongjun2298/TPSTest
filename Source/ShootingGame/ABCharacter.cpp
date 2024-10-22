@@ -3,7 +3,7 @@
 
 #include "ABCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
-
+#include"ABBullet.h"
 #include "Camera/CameraComponent.h"
 // Sets default values
 AABCharacter::AABCharacter()
@@ -18,7 +18,8 @@ AABCharacter::AABCharacter()
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -88.f),FRotator
 	(0.f,-90.f,0.f));
-	SpringArm->TargetArmLength = 400.f;
+	SpringArm->TargetArmLength = 600.f;
+	SpringArm->SetRelativeLocation(FVector(0.f, 0.f, 110.f));
 	SpringArm->SetRelativeRotation(FRotator(-15.f, 0.f, 0.f));
 
 	SpringArm->bUsePawnControlRotation = true;
@@ -42,9 +43,13 @@ AABCharacter::AABCharacter()
 
 	}
 	
-
-
 	bAttackMode = false;
+
+	GetCharacterMovement()->JumpZVelocity = 600.f;
+
+	BulletList = AABBullet::StaticClass();
+
+
 }
 
 // Called when the game starts or when spawned
@@ -72,7 +77,8 @@ void AABCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AABCharacter::NormalAttackStart);
 	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Released, this, &AABCharacter::NormalAttackEnd);
-
+	PlayerInputComponent->BindAction(TEXT("Zoom"), EInputEvent::IE_Pressed, this, &AABCharacter::Zoom);
+	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AABCharacter::Jump);
 }
 
 void AABCharacter::UpDown(float Axis)
@@ -88,7 +94,7 @@ void AABCharacter::RightLeft(float Axis)
 
 void AABCharacter::LookUp(float Axis)
 {
-	AddControllerPitchInput(Axis);
+	AddControllerPitchInput(-Axis);
 }
 
 void AABCharacter::Turn(float Axis)
@@ -101,9 +107,42 @@ void AABCharacter::NormalAttackEnd()
 	bAttackMode = false;
 }
 
+void AABCharacter::Zoom()
+{
+	++iZoomCount;
+	if (iZoomCount % 2 == 1)
+	{
+		
+		SpringArm->TargetArmLength = -400.f;
+
+	}
+	else
+	{
+		
+		SpringArm->TargetArmLength = 600.f;
+	}
+}
+
 void AABCharacter::NormalAttackStart()
 {
 	bAttackMode = true;
+	
+
+	FTransform fireposition = GetMesh()->GetSocketTransform(TEXT("Muzzle"));
+
+
+	AABBullet* Bullet=GetWorld()->SpawnActor<AABBullet>(BulletList, fireposition);
+	if (Bullet)
+	{
+		FVector LaunchDirection = Camera->GetForwardVector();
+
+		//FVector LaunchDirection = Camera->GetRightVector(); ÀÌ°É ÃÑÅº¶³¾îÁö´Â°É·ÎÇÏ´Ï ¸ÚÀÖ¾îÁü
+
+		Bullet->FireInDirection(LaunchDirection);
+	}
+	
+	
+
 
 }
 

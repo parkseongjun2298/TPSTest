@@ -34,6 +34,15 @@ public:
 	UCameraComponent* Camera;
 
 	bool bAttackMode = false;
+	int32 iZoomCount = 0;
+
+	
+
+	UPROPERTY(EditAnywhere, Category = "Bullet")
+	TSubclassOf<class AABBullet> BulletList;
+	//SpawnActor 로 소환시 uclass를 쓰므로 TSubclassOf로 해야한다
+
+
 private:
 		void UpDown(float Axis);
 		void RightLeft(float Axis);
@@ -41,5 +50,10 @@ private:
 		void Turn(float Axis);
 		void NormalAttackStart();
 		void NormalAttackEnd();
-		
+		void Zoom();
+
+
+
+
+
 };
