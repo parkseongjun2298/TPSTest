@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include"ABBullet.h"
 #include "Camera/CameraComponent.h"
+#include"ABAnimInstance.h"
 // Sets default values
 AABCharacter::AABCharacter()
 {
@@ -49,6 +50,7 @@ AABCharacter::AABCharacter()
 
 	BulletList = AABBullet::StaticClass();
 
+	
 
 }
 
@@ -74,22 +76,62 @@ void AABCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AABCharacter::UpDown);
 	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &AABCharacter::LookUp);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &AABCharacter::Turn);
+	
 
 	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AABCharacter::NormalAttackStart);
 	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Released, this, &AABCharacter::NormalAttackEnd);
 	PlayerInputComponent->BindAction(TEXT("Zoom"), EInputEvent::IE_Pressed, this, &AABCharacter::Zoom);
 	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AABCharacter::Jump);
+	PlayerInputComponent->BindAction(TEXT("Reroad"), EInputEvent::IE_Pressed,this, &AABCharacter::Reload);
+}
+
+void AABCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	ABAnim = Cast<UABAnimInstance>(GetMesh()->GetAnimInstance());
+
+	ABAnim->OnFireBulletDelegate.AddLambda([this]()->void {
+
+		
+
+
+		FTransform fireposition = GetMesh()->GetSocketTransform(TEXT("Muzzle"));
+
+
+		AABBullet* Bullet = GetWorld()->SpawnActor<AABBullet>(BulletList, fireposition);
+		if (Bullet)
+		{
+			FVector LaunchDirection = Camera->GetForwardVector();
+
+			//FVector LaunchDirection = Camera->GetRightVector(); ÀÌ°É ÃÑÅº¶³¾îÁö´Â°É·ÎÇÏ´Ï ¸ÚÀÖ¾îÁü
+
+			Bullet->FireInDirection(LaunchDirection);
+		}
+
+		});
+
+	ABAnim->OnReloadDelegate.AddLambda([this]()->void {
+
+		bReload = false;
+		});
+
 }
 
 void AABCharacter::UpDown(float Axis)
 {
-	AddMovementInput(GetActorForwardVector(), Axis);
+	if (!bAttackMode)
+	{
+		AddMovementInput(GetActorForwardVector(), Axis);
+	}
 }
 
 void AABCharacter::RightLeft(float Axis)
 {
+	if (!bAttackMode)
+	{
+		AddMovementInput(GetActorRightVector(), Axis);
 
-	AddMovementInput(GetActorRightVector(), Axis);
+	}
 }
 
 void AABCharacter::LookUp(float Axis)
@@ -123,23 +165,14 @@ void AABCharacter::Zoom()
 	}
 }
 
+void AABCharacter::Reload()
+{
+	bReload = true;
+}
+
 void AABCharacter::NormalAttackStart()
 {
 	bAttackMode = true;
-	
-
-	FTransform fireposition = GetMesh()->GetSocketTransform(TEXT("Muzzle"));
-
-
-	AABBullet* Bullet=GetWorld()->SpawnActor<AABBullet>(BulletList, fireposition);
-	if (Bullet)
-	{
-		FVector LaunchDirection = Camera->GetForwardVector();
-
-		//FVector LaunchDirection = Camera->GetRightVector(); ÀÌ°É ÃÑÅº¶³¾îÁö´Â°É·ÎÇÏ´Ï ¸ÚÀÖ¾îÁü
-
-		Bullet->FireInDirection(LaunchDirection);
-	}
 	
 	
 

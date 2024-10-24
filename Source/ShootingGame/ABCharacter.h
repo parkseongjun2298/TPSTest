@@ -26,6 +26,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	virtual void PostInitializeComponents()override;
 
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
 	USpringArmComponent* SpringArm;
@@ -36,12 +37,15 @@ public:
 	bool bAttackMode = false;
 	int32 iZoomCount = 0;
 
+	bool bReload = false;
 	
 
 	UPROPERTY(EditAnywhere, Category = "Bullet")
 	TSubclassOf<class AABBullet> BulletList;
 	//SpawnActor 로 소환시 uclass를 쓰므로 TSubclassOf로 해야한다
-
+	
+	UPROPERTY()
+	class UABAnimInstance* ABAnim;
 
 private:
 		void UpDown(float Axis);
@@ -51,7 +55,7 @@ private:
 		void NormalAttackStart();
 		void NormalAttackEnd();
 		void Zoom();
-
+		void Reload();
 
 
 

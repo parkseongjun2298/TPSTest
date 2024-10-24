@@ -21,6 +21,17 @@ void UABAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		AttackMode = Player->bAttackMode;
 		Speed = Player->GetVelocity().Size();
 		IsInAir = Player->GetCharacterMovement()->IsFalling();
+		isReload = Player->bReload;
 	}
 
+}
+
+void UABAnimInstance::AnimNotify_FireBullet()
+{
+	OnFireBulletDelegate.Broadcast();
+}
+
+void UABAnimInstance::AnimNotify_Reload()
+{
+	OnReloadDelegate.Broadcast();
 }

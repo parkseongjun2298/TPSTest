@@ -6,6 +6,8 @@
 #include "Animation/AnimInstance.h"
 #include "ABAnimInstance.generated.h"
 
+DECLARE_MULTICAST_DELEGATE(FOnFireBulletDelegate);
+DECLARE_MULTICAST_DELEGATE(FOnReloadDelegate);
 /**
  * 
  */
@@ -26,4 +28,18 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character", Meta = (AllowPrivateAccess = true))
 	bool IsInAir;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character", Meta = (AllowPrivateAccess = true))
+	bool isReload;
+
+
+private:
+	UFUNCTION()
+	void AnimNotify_FireBullet();
+
+	UFUNCTION()
+	void AnimNotify_Reload();
+public:
+	FOnFireBulletDelegate OnFireBulletDelegate;
+	FOnReloadDelegate OnReloadDelegate;
 };
