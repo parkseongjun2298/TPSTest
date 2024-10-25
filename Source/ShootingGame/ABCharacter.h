@@ -47,6 +47,11 @@ public:
 	UPROPERTY()
 	class UABAnimInstance* ABAnim;
 
+
+	int MaxBulletNum = 0;
+	int BulletNum = 0;
+
+
 private:
 		void UpDown(float Axis);
 		void RightLeft(float Axis);

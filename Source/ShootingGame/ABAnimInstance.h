@@ -33,6 +33,7 @@ private:
 	bool isReload;
 
 
+
 private:
 	UFUNCTION()
 	void AnimNotify_FireBullet();

@@ -51,7 +51,8 @@ AABCharacter::AABCharacter()
 	BulletList = AABBullet::StaticClass();
 
 	
-
+	MaxBulletNum = 30;
+	BulletNum = MaxBulletNum;
 }
 
 // Called when the game starts or when spawned
@@ -90,29 +91,37 @@ void AABCharacter::PostInitializeComponents()
 	Super::PostInitializeComponents();
 	ABAnim = Cast<UABAnimInstance>(GetMesh()->GetAnimInstance());
 
+	//ÃÑ¾Ë¹ß»ç
 	ABAnim->OnFireBulletDelegate.AddLambda([this]()->void {
+
+		if(BulletNum>0)
+		{
+			
+			FTransform fireposition = GetMesh()->GetSocketTransform(TEXT("Muzzle"));
+
+
+			AABBullet* Bullet = GetWorld()->SpawnActor<AABBullet>(BulletList, fireposition);
+			if (Bullet)
+			{
+				FVector LaunchDirection = Camera->GetForwardVector();
+
+				//FVector LaunchDirection = Camera->GetRightVector(); ÀÌ°É ÃÑÅº¶³¾îÁö´Â°É·ÎÇÏ´Ï ¸ÚÀÖ¾îÁü
+
+				Bullet->FireInDirection(LaunchDirection);
+			}
+			--BulletNum;
+		}
+
 
 		
 
-
-		FTransform fireposition = GetMesh()->GetSocketTransform(TEXT("Muzzle"));
-
-
-		AABBullet* Bullet = GetWorld()->SpawnActor<AABBullet>(BulletList, fireposition);
-		if (Bullet)
-		{
-			FVector LaunchDirection = Camera->GetForwardVector();
-
-			//FVector LaunchDirection = Camera->GetRightVector(); ÀÌ°É ÃÑÅº¶³¾îÁö´Â°É·ÎÇÏ´Ï ¸ÚÀÖ¾îÁü
-
-			Bullet->FireInDirection(LaunchDirection);
-		}
-
 		});
 
+	//ÀçÀåÀü
 	ABAnim->OnReloadDelegate.AddLambda([this]()->void {
 
 		bReload = false;
+		BulletNum = MaxBulletNum;
 		});
 
 }
