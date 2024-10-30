@@ -6,6 +6,8 @@
 #include"ABBullet.h"
 #include "Camera/CameraComponent.h"
 #include"ABAnimInstance.h"
+#include"ABPlayerState.h"
+#include"ABPlayerStatComponent.h"
 // Sets default values
 AABCharacter::AABCharacter()
 {
@@ -19,6 +21,9 @@ AABCharacter::AABCharacter()
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -88.f),FRotator
 	(0.f,-90.f,0.f));
+
+	CharacterStat = CreateAbstractDefaultSubobject<UABPlayerStatComponent>(TEXT("CHARACTERSTAT"));
+
 	SpringArm->TargetArmLength = 600.f;
 	SpringArm->SetRelativeLocation(FVector(0.f, 0.f, 110.f));
 	SpringArm->SetRelativeRotation(FRotator(-15.f, 0.f, 0.f));
@@ -51,8 +56,12 @@ AABCharacter::AABCharacter()
 	BulletList = AABBullet::StaticClass();
 
 	
-	MaxBulletNum = 30;
-	BulletNum = MaxBulletNum;
+	//MaxBulletNum = 30;
+	//BulletNum = MaxBulletNum;
+
+	auto ABPlayerState = Cast<AABPlayerState>(GetPlayerState());
+	
+	
 }
 
 // Called when the game starts or when spawned
@@ -94,7 +103,7 @@ void AABCharacter::PostInitializeComponents()
 	//ÃÑ¾Ë¹ß»ç
 	ABAnim->OnFireBulletDelegate.AddLambda([this]()->void {
 
-		if(BulletNum>0)
+		if(CharacterStat->GetCurBullet() >0)
 		{
 			
 			FTransform fireposition = GetMesh()->GetSocketTransform(TEXT("Muzzle"));
@@ -109,7 +118,7 @@ void AABCharacter::PostInitializeComponents()
 
 				Bullet->FireInDirection(LaunchDirection);
 			}
-			--BulletNum;
+			CharacterStat->SetCurBullet(-1);
 		}
 
 
@@ -121,7 +130,7 @@ void AABCharacter::PostInitializeComponents()
 	ABAnim->OnReloadDelegate.AddLambda([this]()->void {
 
 		bReload = false;
-		BulletNum = MaxBulletNum;
+		CharacterStat->SetCurBullet(CharacterStat->GetMaxBullet());
 		});
 
 }

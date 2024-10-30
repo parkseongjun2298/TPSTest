@@ -5,7 +5,7 @@
 
 UABGameInstance::UABGameInstance()
 {
-	FString CharacterDataPath = TEXT("/Script/Engine.DataTable'/Game/Data/ABCharacterDataTable.ABCharacterDataTable'");
+	FString CharacterDataPath = TEXT("/Script/Engine.DataTable'/Game/Data/ABCharacterData.ABCharacterData'");
 	static ConstructorHelpers::FObjectFinder<UDataTable>DT_ABCharacter(*CharacterDataPath);
 	
 	ABCharacterTable = DT_ABCharacter.Object;
@@ -26,4 +26,5 @@ void UABGameInstance::Init()
 FABCharacterData* UABGameInstance::GetABCharacterData(int32 Level)
 {
 	return ABCharacterTable->FindRow<FABCharacterData>(*FString::FromInt(Level),TEXT(""));
+	
 }

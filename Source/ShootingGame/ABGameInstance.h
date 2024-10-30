@@ -15,13 +15,17 @@ struct FABCharacterData:public FTableRowBase
 {
 	GENERATED_BODY()
 public:
-	FABCharacterData():Level(1),MaxHp(100.f),Attack(10.f){}
+	FABCharacterData():Level(1),MaxHp(100.f),Attack(10.f),MaxBullet(30),CurBullet(30){}
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	int32 Level;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	int32 MaxHp;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	int32 Attack;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	int32 MaxBullet;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	int32 CurBullet;
 };
 
 

@@ -33,6 +33,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
 	UCameraComponent* Camera;
+	UPROPERTY(VisibleAnywhere, Category = "Stat")
+	class UABPlayerStatComponent* CharacterStat;
 
 	bool bAttackMode = false;
 	int32 iZoomCount = 0;
