@@ -12,7 +12,8 @@ UABPlayerStatComponent::UABPlayerStatComponent()
 	bWantsInitializeComponent = true;
 	// ...
 	Level = 1;
-
+	MaxBullet = 1;
+	CurBullet = 1;
 
 }
 
@@ -45,31 +46,39 @@ void UABPlayerStatComponent::SetNewLevel(int32 NewLevel)
 {
 	auto GameInstnace = Cast<UABGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	CurStatData = GameInstnace->GetABCharacterData(NewLevel);
-	Level = NewLevel;
-	CurHp = CurStatData->MaxHp;
-	MaxBullet = CurStatData->MaxBullet;
-	CurBullet = CurStatData->CurBullet;
+	if (nullptr != CurStatData)
+	{
+		Level = NewLevel;
+		CurHp = CurStatData->MaxHp;
+		MaxBullet = CurStatData->MaxBullet;
+		CurBullet = CurStatData->CurBullet;
+	}
+	else
 
+	{
+
+		UE_LOG(LogTemp,Warning, TEXT("Level(%d)data doesn`t exist"), NewLevel);
+	}
 }
 
-int32 UABPlayerStatComponent::GetMaxBullet()
-{
-	return MaxBullet;
-
-}
-
-int32 UABPlayerStatComponent::GetCurBullet()
-{
-	return CurBullet;
-
-}
-
-void UABPlayerStatComponent::SetMaxBullet(int32 Bullet)
-{
-	MaxBullet = Bullet;
-}
-
-void UABPlayerStatComponent::SetCurBullet(int32 Bullet)
-{
-	CurBullet += Bullet;
-}
+//int32 UABPlayerStatComponent::GetMaxBullet()
+//{
+//	return MaxBullet;
+//
+//}
+//
+//int32 UABPlayerStatComponent::GetCurBullet()
+//{
+//	return CurBullet;
+//
+//}
+//
+//void UABPlayerStatComponent::SetMaxBullet(int32 Bullet)
+//{
+//	MaxBullet = Bullet;
+//}
+//
+//void UABPlayerStatComponent::SetCurBullet(int32 Bullet)
+//{
+//	CurBullet += Bullet;
+//}

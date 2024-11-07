@@ -4,9 +4,30 @@
 #include "ABHUDWidget.h"
 #include"Components/TextBlock.h"
 #include"ABPlayerState.h"
-
-void UABHUDWidget::BindCharacterStat()
+#include"ABPlayerStatComponent.h"
+#include"Components/ProgressBar.h"
+void UABHUDWidget::BindCharacterStat(UABPlayerStatComponent* CharacterStat)
 {
+	CurCharacterStat = CharacterStat;
+
+}
+
+void UABHUDWidget::BindPlayerState(AABPlayerState* PlayerState)
+{
+	CurPlayerState = PlayerState;
+
+	if (IsValid(PlayerState))
+	{
+		CurPlayerState = PlayerState;
+		PlayerState->OnPlayerStateChange.AddUObject(this, &UABHUDWidget::UpdatePlayerState);
+
+	
+
+	}
+
+
+	UE_LOG(LogTemp, Warning, TEXT("Novalid"));
+	
 }
 
 void UABHUDWidget::NativeConstruct()
@@ -17,6 +38,8 @@ void UABHUDWidget::NativeConstruct()
 	CurBullet= Cast<UTextBlock>(GetWidgetFromName(TEXT("CurBulletNum")));
 	MaxBullet = Cast<UTextBlock>(GetWidgetFromName(TEXT("MaxBulletNum")));
 
+	HPBar = Cast<UProgressBar>(GetWidgetFromName(TEXT("HP_Bar")));
+	EXPBar = Cast<UProgressBar>(GetWidgetFromName(TEXT("EXP_Bar")));
 }
 
 void UABHUDWidget::UpdateCharacterStat()
@@ -25,5 +48,12 @@ void UABHUDWidget::UpdateCharacterStat()
 
 void UABHUDWidget::UpdatePlayerState()
 {
-	//CurBullet->SetText(FText::FromString(FString::FromInt());
+	CurBullet->SetText(FText::FromString(FString::FromInt(CurPlayerState->GetCurBullet())));
+	MaxBullet->SetText(FText::FromString(FString::FromInt(CurPlayerState->GetMaxBullet())));
+
+	
+	UE_LOG(LogTemp, Warning, TEXT("Update"));
+
+	
+
 }

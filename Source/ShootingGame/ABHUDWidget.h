@@ -15,11 +15,16 @@ class SHOOTINGGAME_API UABHUDWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	void BindCharacterStat();
+	void BindCharacterStat(class UABPlayerStatComponent* CharacterStat);
+
+	
+	void BindPlayerState(class AABPlayerState* PlayerState);
 
 protected:
 	virtual void NativeConstruct()override;
 	void UpdateCharacterStat();
+
+	UFUNCTION()
 	void UpdatePlayerState();
 
 private:
@@ -33,4 +38,13 @@ private:
 	UPROPERTY()
 	class UTextBlock* CurBullet;
 
+	UPROPERTY()
+	class UProgressBar* HPBar;
+
+	UPROPERTY()
+	class UProgressBar* EXPBar;
+
+
+	TWeakObjectPtr<class UABPlayerStatComponent>CurCharacterStat;
+	TWeakObjectPtr<class AABPlayerState>CurPlayerState;
 };

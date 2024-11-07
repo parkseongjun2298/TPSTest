@@ -35,6 +35,8 @@ public:
 	UCameraComponent* Camera;
 	UPROPERTY(VisibleAnywhere, Category = "Stat")
 	class UABPlayerStatComponent* CharacterStat;
+	UPROPERTY(VisibleAnywhere, Category = "Stat")
+	class AABPlayerState* ABPlayerState;
 
 	bool bAttackMode = false;
 	int32 iZoomCount = 0;
@@ -49,11 +51,13 @@ public:
 	UPROPERTY()
 	class UABAnimInstance* ABAnim;
 
+	
 
 	int MaxBulletNum = 0;
 	int BulletNum = 0;
 
-
+	UPROPERTY()
+	class AABPlayerController* ABPlayerController;
 private:
 		void UpDown(float Axis);
 		void RightLeft(float Axis);
@@ -66,5 +70,7 @@ private:
 
 
 
-
+		UPROPERTY(Transient, VisibleInstanceOnly, BlueprintReadOnly, Category = "State", meta = (AllowPrivateAccess = true))
+		bool bIsPlayer;
+		
 };

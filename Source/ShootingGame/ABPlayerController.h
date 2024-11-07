@@ -29,4 +29,8 @@ protected:
 private:
 	UPROPERTY()
 	class UABHUDWidget* HUDWidget;
+
+	UPROPERTY()
+	class AABPlayerState* PlayerState;
+	
 };

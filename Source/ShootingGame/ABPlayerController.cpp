@@ -3,7 +3,7 @@
 
 #include "ABPlayerController.h"
 #include"ABHUDWidget.h"
-
+#include"ABPlayerState.h"
 AABPlayerController::AABPlayerController()
 {
 	static ConstructorHelpers::FClassFinder<UABHUDWidget>UI_HUD_C(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/UI/UserWidget.UserWidget_C'"));
@@ -39,4 +39,14 @@ void AABPlayerController::BeginPlay()
 
 	HUDWidget = CreateWidget<UABHUDWidget>(this, HUDWidgetClass);
 	HUDWidget->AddToViewport();
+
+	 PlayerState = Cast<AABPlayerState>(PlayerState); //여기서 안댐 AABPlayerController의 PlayerState 이녀석이 속이 비어있음 이걸 값잇게해야함
+	 if (PlayerState != nullptr)
+	 {
+		 HUDWidget->BindPlayerState(PlayerState);
+
+		 PlayerState->OnPlayerStateChange.Broadcast();
+
+	 }
+
 }

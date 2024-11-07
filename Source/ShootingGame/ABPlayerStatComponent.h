@@ -39,8 +39,8 @@ private:
 
 public:
 	void SetNewLevel(int32 NewLevel);
-	int32 GetMaxBullet();
+	/*int32 GetMaxBullet();
 	int32 GetCurBullet();
 	void SetMaxBullet(int32 Bullet);
-	void SetCurBullet(int32 Bullet);
+	void SetCurBullet(int32 Bullet);*/
 };

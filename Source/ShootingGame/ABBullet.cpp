@@ -56,8 +56,8 @@ void AABBullet::BeginPlay()
 void AABBullet::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AABBullet::OnCharacterOverlap);
-	
+	//CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AABBullet::OnCharacterOverlap);
+	//여기 이상한듯
 }
 
 // Called every frame

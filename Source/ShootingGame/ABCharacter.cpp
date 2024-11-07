@@ -8,6 +8,8 @@
 #include"ABAnimInstance.h"
 #include"ABPlayerState.h"
 #include"ABPlayerStatComponent.h"
+#include"ABHUDWidget.h"
+#include"ABPlayerController.h"
 // Sets default values
 AABCharacter::AABCharacter()
 {
@@ -23,6 +25,7 @@ AABCharacter::AABCharacter()
 	(0.f,-90.f,0.f));
 
 	CharacterStat = CreateAbstractDefaultSubobject<UABPlayerStatComponent>(TEXT("CHARACTERSTAT"));
+	ABPlayerState = CreateAbstractDefaultSubobject<AABPlayerState>(TEXT("CHARACTERSTATE"));
 
 	SpringArm->TargetArmLength = 600.f;
 	SpringArm->SetRelativeLocation(FVector(0.f, 0.f, 110.f));
@@ -59,8 +62,10 @@ AABCharacter::AABCharacter()
 	//MaxBulletNum = 30;
 	//BulletNum = MaxBulletNum;
 
-	auto ABPlayerState = Cast<AABPlayerState>(GetPlayerState());
 	
+	
+	
+
 	
 }
 
@@ -68,7 +73,29 @@ AABCharacter::AABCharacter()
 void AABCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
 	
+		ABPlayerController = Cast<AABPlayerController>(GetController());
+
+		if (ABPlayerController!=nullptr)
+		{
+			ABPlayerController->GetHUDWidget()->BindCharacterStat(CharacterStat);
+
+
+			 ABPlayerState = Cast<AABPlayerState>(GetPlayerState());
+			if (ABPlayerState != nullptr)
+			{
+				CharacterStat->SetNewLevel(ABPlayerState->GetCharLevel());
+			}
+
+		
+		}
+
+		
+	
+	
+	
+
 }
 
 // Called every frame
@@ -103,7 +130,7 @@ void AABCharacter::PostInitializeComponents()
 	//총알발사
 	ABAnim->OnFireBulletDelegate.AddLambda([this]()->void {
 
-		if(CharacterStat->GetCurBullet() >0)
+		if(ABPlayerState->GetCurBullet() >0)
 		{
 			
 			FTransform fireposition = GetMesh()->GetSocketTransform(TEXT("Muzzle"));
@@ -118,7 +145,8 @@ void AABCharacter::PostInitializeComponents()
 
 				Bullet->FireInDirection(LaunchDirection);
 			}
-			CharacterStat->SetCurBullet(-1);
+			ABPlayerState->SetCurBullet(-1);
+			
 		}
 
 
@@ -129,8 +157,9 @@ void AABCharacter::PostInitializeComponents()
 	//재장전
 	ABAnim->OnReloadDelegate.AddLambda([this]()->void {
 
+
 		bReload = false;
-		CharacterStat->SetCurBullet(CharacterStat->GetMaxBullet());
+		ABPlayerState->ReLoadBullet(ABPlayerState->GetMaxBullet());
 		});
 
 }

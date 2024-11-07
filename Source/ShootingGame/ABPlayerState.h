@@ -21,6 +21,11 @@ public:
 	int32 GetMaxBullet();
 	int32 GetCurBullet();
 	void InitPlayerData();
+	int32 GetCharLevel();
+
+	void SetMaxBullet(int32 Bullet);
+	void SetCurBullet(int32 Bullet);
+	void ReLoadBullet(int32 Bullet);
 
 	FOnPlayerStateChangeDelegate OnPlayerStateChange;
 protected:
@@ -32,4 +37,7 @@ protected:
 
 	UPROPERTY(Transient)
 	int32 CharLevel;
+
+private:
+	struct FABCharacterData* CurStatData;
 };

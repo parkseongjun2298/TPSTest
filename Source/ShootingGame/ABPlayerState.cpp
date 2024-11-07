@@ -2,12 +2,10 @@
 
 
 #include "ABPlayerState.h"
-
+#include"ABGameInstance.h"
 AABPlayerState::AABPlayerState()
 {
-	CharLevel = 1;
-	MaxBullet = 30;
-	CurBullet = MaxBullet;
+	
 
 }
 
@@ -23,8 +21,42 @@ int32 AABPlayerState::GetCurBullet()
 
 void AABPlayerState::InitPlayerData()
 {
-	SetPlayerName(TEXT("PSJ"));
-	CharLevel = 1;
-	MaxBullet = 30;
-	CurBullet = MaxBullet;
+
+}
+
+int32 AABPlayerState::GetCharLevel()
+{
+	return CharLevel;
+}
+
+void AABPlayerState::SetMaxBullet(int32 Bullet)
+{
+	MaxBullet = Bullet;
+	OnPlayerStateChange.Broadcast();
+}
+
+void AABPlayerState::SetCurBullet(int32 Bullet)
+{
+
+	
+	
+
+	
+
+	/*auto ABGameInstance = Cast<UABGameInstance>(GetGameInstance());
+	CurStatData = ABGameInstance->GetABCharacterData(CharLevel);*/
+	CurBullet += Bullet;
+
+
+	OnPlayerStateChange.Broadcast();
+
+	UE_LOG(LogTemp, Warning, TEXT("Bullet Num: %d"), CurBullet);
+	
+}
+
+void AABPlayerState::ReLoadBullet(int32 Bullet)
+{
+	CurBullet = Bullet;
+
+	OnPlayerStateChange.Broadcast();
 }
