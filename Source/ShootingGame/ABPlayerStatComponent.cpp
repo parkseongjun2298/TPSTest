@@ -30,7 +30,7 @@ void UABPlayerStatComponent::BeginPlay()
 void UABPlayerStatComponent::InitializeComponent()
 {
 	Super::InitializeComponent();
-	SetNewLevel(Level);
+	//SetNewLevel(Level);
 }
 
 
@@ -54,7 +54,6 @@ void UABPlayerStatComponent::SetNewLevel(int32 NewLevel)
 		CurBullet = CurStatData->CurBullet;
 	}
 	else
-
 	{
 
 		UE_LOG(LogTemp,Warning, TEXT("Level(%d)data doesn`t exist"), NewLevel);
