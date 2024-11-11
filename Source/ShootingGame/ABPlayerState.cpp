@@ -21,6 +21,11 @@ int32 AABPlayerState::GetCurBullet()
 
 void AABPlayerState::InitPlayerData()
 {
+	SetPlayerName(TEXT("PSJ"));
+	SetCharacterLevel(1);
+	
+	MaxBullet = 30;
+	CurBullet = MaxBullet;
 
 }
 
@@ -43,14 +48,13 @@ void AABPlayerState::SetCurBullet(int32 Bullet)
 
 	
 
-	/*auto ABGameInstance = Cast<UABGameInstance>(GetGameInstance());
-	CurStatData = ABGameInstance->GetABCharacterData(CharLevel);*/
+
 	CurBullet += Bullet;
 
 
 	OnPlayerStateChange.Broadcast();
 
-	UE_LOG(LogTemp, Warning, TEXT("Bullet Num: %d"), CurBullet);
+	//UE_LOG(LogTemp, Warning, TEXT("Bullet Num: %d"), CurBullet);
 	
 }
 
@@ -59,4 +63,16 @@ void AABPlayerState::ReLoadBullet(int32 Bullet)
 	CurBullet = Bullet;
 
 	OnPlayerStateChange.Broadcast();
+}
+
+void AABPlayerState::SetCharacterLevel(int32 NewCharacterLevel)
+{
+	auto GameInstance = Cast<UABGameInstance>(GetGameInstance());
+	
+	CurStatData = GameInstance->GetABCharacterData(NewCharacterLevel);
+	
+	CharLevel = NewCharacterLevel;
+
+
+
 }

@@ -18,7 +18,7 @@ void UABGameInstance::Init()
 {
 	Super::Init();
 
-	UE_LOG(LogTemp, Warning, TEXT("curbullet of Character :%d"), GetABCharacterData(1)->CurBullet);
+	//UE_LOG(LogTemp, Warning, TEXT("curbullet of Character :%d"), GetABCharacterData(1)->CurBullet);
 
 
 }

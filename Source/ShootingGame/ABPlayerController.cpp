@@ -40,12 +40,12 @@ void AABPlayerController::BeginPlay()
 	HUDWidget = CreateWidget<UABHUDWidget>(this, HUDWidgetClass);
 	HUDWidget->AddToViewport();
 
-	 PlayerState = Cast<AABPlayerState>(PlayerState); //여기서 안댐 AABPlayerController의 PlayerState 이녀석이 속이 비어있음 이걸 값잇게해야함
-	 if (PlayerState != nullptr)
+	auto ABPlayerState = Cast<AABPlayerState>(PlayerState); 
+	 if (ABPlayerState != nullptr)
 	 {
-		 HUDWidget->BindPlayerState(PlayerState);
+		 HUDWidget->BindPlayerState(ABPlayerState);
 
-		 PlayerState->OnPlayerStateChange.Broadcast();
+		 ABPlayerState->OnPlayerStateChange.Broadcast();
 
 	 }
 

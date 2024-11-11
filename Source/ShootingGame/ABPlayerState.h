@@ -39,5 +39,6 @@ protected:
 	int32 CharLevel;
 
 private:
+	void SetCharacterLevel(int32 NewCharacterLevel);
 	struct FABCharacterData* CurStatData;
 };
