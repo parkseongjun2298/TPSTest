@@ -12,24 +12,24 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.gitignore" />
-    <None Include="..\..\.vsconfig" />
     <None Include="..\..\README.md" />
+    <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
-    <None Include="..\..\Config\DefaultEditor.ini">
-      <Filter>Config</Filter>
-    </None>
     <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
-      <Filter>Config</Filter>
-    </None>
-    <None Include="..\..\Config\DefaultEngine.ini">
       <Filter>Config</Filter>
     </None>
     <None Include="..\..\Config\DefaultGame.ini">
       <Filter>Config</Filter>
     </None>
     <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
       <Filter>Config</Filter>
     </None>
     <Filter Include="Platforms">
@@ -47,79 +47,97 @@
     <Filter Include="Source\ShootingGame">
       <UniqueIdentifier>{2C7FEEF7-3DAA-3D35-8BA0-04ECCB31829C}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\ShootingGame\ABAnimInstance.cpp">
-      <Filter>Source\ShootingGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABAnimInstance.h">
+    <ClInclude Include="..\..\Source\ShootingGame\ABPlayerController.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\ShootingGame\ABBullet.cpp">
+    <ClCompile Include="..\..\Source\ShootingGame\ShootingGame.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABBullet.h">
-      <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\ShootingGame\ABCharacter.cpp">
+    <ClCompile Include="..\..\Source\ShootingGame\ABMonster.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABCharacter.h">
+    <ClCompile Include="..\..\Source\ShootingGame\ABPlayerState.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ShootingGame\ABPlayerController.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ShootingGame\ShootingGameGameMode.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\ShootingGameGameMode.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\ShootingGame\ABGameInstance.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABGameInstance.h">
-      <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\ShootingGame\ABGameMode.cpp">
-      <Filter>Source\ShootingGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABGameMode.h">
-      <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\ShootingGame\ABHUDWidget.cpp">
-      <Filter>Source\ShootingGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABHUDWidget.h">
-      <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\ShootingGame\ABPlayerController.cpp">
-      <Filter>Source\ShootingGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABPlayerController.h">
-      <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\ShootingGame\ABPlayerStatComponent.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABPlayerStatComponent.h">
+    <ClInclude Include="..\..\Source\ShootingGame\ABCharacter.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\ShootingGame\ABPlayerState.cpp">
+    <ClInclude Include="..\..\Source\ShootingGame\ABMonsterAnimInstance.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\ABMonsterAnimInstance.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABPlayerState.h">
+    <ClInclude Include="..\..\Source\ShootingGame\ABMonster.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
-    <None Include="..\..\Source\ShootingGame\ShootingGame.Build.cs">
+    <ClInclude Include="..\..\Source\ShootingGame\ABMonsterStatComponent.h">
       <Filter>Source\ShootingGame</Filter>
-    </None>
-    <ClCompile Include="..\..\Source\ShootingGame\ShootingGame.cpp">
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\ABMonsterStatComponent.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ShootingGame.h">
-      <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\ShootingGame\ShootingGameCharacter.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\ShootingGame\ShootingGameCharacter.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\ShootingGame\ShootingGameGameMode.cpp">
+    <ClInclude Include="..\..\Source\ShootingGame\ABGameMode.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ShootingGame\ShootingGame.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ShootingGame\ABBullet.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\ABAnimInstance.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ShootingGameGameMode.h">
+    <ClInclude Include="..\..\Source\ShootingGame\ABAnimInstance.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <None Include="..\..\Source\ShootingGame\ShootingGame.Build.cs">
+      <Filter>Source\ShootingGame</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\ShootingGame\ABGameMode.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\ABGameInstance.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ShootingGame\ABPlayerStatComponent.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ShootingGame\ABHUDWidget.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\ABBullet.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ShootingGame\ABHUDWidget.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ShootingGame\ABCharacter.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\ABPlayerState.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
   </ItemGroup>

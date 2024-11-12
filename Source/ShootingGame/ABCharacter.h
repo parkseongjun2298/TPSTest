@@ -53,8 +53,7 @@ public:
 
 	
 
-	int MaxBulletNum = 0;
-	int BulletNum = 0;
+	
 
 	UPROPERTY()
 	class AABPlayerController* ABPlayerController;

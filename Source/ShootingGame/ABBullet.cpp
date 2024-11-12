@@ -4,6 +4,8 @@
 #include "ABBullet.h"
 #include"Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include"ABMonster.h"
+
 
 // Sets default values
 AABBullet::AABBullet()
@@ -34,14 +36,14 @@ AABBullet::AABBullet()
 
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MovementComp"));
 	MovementComp->SetUpdatedComponent(CollisionComp);
-	MovementComp->InitialSpeed = 5000.f;
-	MovementComp->MaxSpeed = 5000;
+	MovementComp->InitialSpeed = 7000.f;
+	MovementComp->MaxSpeed = 7000;
 	MovementComp->bShouldBounce = false;
 	MovementComp->bRotationFollowsVelocity = true;
-
+	
 
 	InitialLifeSpan = 3.0f;
-
+	
 }
 
 // Called when the game starts or when spawned
@@ -56,8 +58,8 @@ void AABBullet::BeginPlay()
 void AABBullet::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
+	
 	//CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AABBullet::OnCharacterOverlap);
-	//여기 이상한듯
 }
 
 // Called every frame
@@ -79,6 +81,12 @@ void AABBullet::FireInDirection(const FVector& ShootDirection)
 void AABBullet::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 
-	UE_LOG(LogTemp, Warning, TEXT("OVerlap"));
+	UE_LOG(LogTemp, Warning, TEXT("HItBefore"));
+	AABMonster* HitMonster = Cast<AABMonster>(OtherActor);
+	if (HitMonster)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("HIt"));
+		Destroy();
+	}
 }
 

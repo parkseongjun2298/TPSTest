@@ -1,0 +1,50 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "ABMonster.generated.h"
+
+UCLASS()
+class SHOOTINGGAME_API AABMonster : public ACharacter
+{
+	GENERATED_BODY()
+
+public:
+	// Sets default values for this character's properties
+	AABMonster();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void PostInitializeComponents()override;
+
+	bool bAttackMode = false;
+	int32 iZoomCount = 0;
+
+	bool bReload = false;
+	UPROPERTY(EditAnywhere, Category = "Bullet")
+	TSubclassOf<class AABBullet> BulletList;
+
+
+	UPROPERTY()
+	class UABMonsterAnimInstance* ABAnim;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Collision")
+	UCapsuleComponent* CapsuleCollision;
+
+
+private:
+	/*void Reload();
+	void NormalAttackStart();
+	void NormalAttackEnd();*/
+};
