@@ -5,7 +5,8 @@
 #include"Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include"ABMonster.h"
-
+#include "GameFramework/DamageType.h"
+#include "Engine/DamageEvents.h"
 
 // Sets default values
 AABBullet::AABBullet()
@@ -20,11 +21,12 @@ AABBullet::AABBullet()
 	RootComponent = CollisionComp;
 
 	CollisionComp->SetCollisionProfileName(TEXT("ABBullet"));
+	Bullet->SetCollisionProfileName(TEXT("NoCollision"));
 
 	Bullet->SetupAttachment(RootComponent);
-	Bullet->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
 	Bullet->SetRelativeScale3D(FVector(0.25f));
-	//Bullet->SetRelativeLocation(FVector(0, 0, -12.5f));
+	
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_BULLET(TEXT("/Script/Engine.StaticMesh'/Game/ParagonMurdock/FX/Meshes/Heroes/Murdock/SM_ShottyMuzzleCone.SM_ShottyMuzzleCone'"));
 	if (SM_BULLET.Succeeded())
@@ -59,7 +61,11 @@ void AABBullet::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 	
-	//CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AABBullet::OnCharacterOverlap);
+	if (CollisionComp)
+	{
+		CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AABBullet::OnCharacterOverlap);
+
+	}
 }
 
 // Called every frame
@@ -67,8 +73,7 @@ void AABBullet::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-
-
+	
 
 
 }
@@ -81,11 +86,15 @@ void AABBullet::FireInDirection(const FVector& ShootDirection)
 void AABBullet::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 
-	UE_LOG(LogTemp, Warning, TEXT("HItBefore"));
+	
+
+
 	AABMonster* HitMonster = Cast<AABMonster>(OtherActor);
 	if (HitMonster)
 	{
+		FDamageEvent DamageEvent;
 		UE_LOG(LogTemp, Warning, TEXT("HIt"));
+		HitMonster->TakeDamage(10.f, DamageEvent, GetInstigatorController(),this);
 		Destroy();
 	}
 }

@@ -24,8 +24,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	
 	virtual void PostInitializeComponents()override;
 
 	bool bAttackMode = false;
@@ -36,15 +35,18 @@ public:
 	TSubclassOf<class AABBullet> BulletList;
 
 
+	UPROPERTY(VisibleAnywhere, Category = "Stat")
+	class UABMonsterStatComponent* CharacterStat;
+
 	UPROPERTY()
 	class UABMonsterAnimInstance* ABAnim;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Collision")
-	UCapsuleComponent* CapsuleCollision;
+	virtual float TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)override;
 
-
-private:
+	
 	/*void Reload();
 	void NormalAttackStart();
 	void NormalAttackEnd();*/
+
+	
 };

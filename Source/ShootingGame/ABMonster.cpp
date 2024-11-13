@@ -5,12 +5,19 @@
 #include"ABMonsterStatComponent.h"
 #include"ABMonsterAnimInstance.h"
 #include"Components/CapsuleComponent.h"
+#include"ABBullet.h"
+#include"ABMonsterStatComponent.h"
+#include"ABGameInstance.h"
 // Sets default values
 AABMonster::AABMonster()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+
+
+	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -88.f), FRotator
+	(0.f, -90.f, 0.f));
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> PlayerAS_Name(TEXT("/Script/Engine.SkeletalMesh'/Game/ParagonMurdock/Characters/Heroes/Murdock/Meshes/Murdock.Murdock'"));
 	if (PlayerAS_Name.Succeeded())
@@ -30,13 +37,19 @@ AABMonster::AABMonster()
 	bAttackMode = false;
 
 
-	//CapsuleCollision = CreateDefaultSubobject<UCapsuleComponent>(TEXT("MonsterCapsuleCollision"));
-	//CapsuleCollision->InitCapsuleSize(42.f, 96.0f); // Å©±â Á¶Àý
-	//CapsuleCollision->SetupAttachment(RootComponent); // RootComponent¿¡ ºÎÂø
+	
 	
 	
 	GetCapsuleComponent()->SetupAttachment(RootComponent);
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("ABMonster"));
+
+
+	BulletList = AABBullet::StaticClass();
+
+
+	CharacterStat = CreateAbstractDefaultSubobject<UABMonsterStatComponent>(TEXT("CHARACTERSTAT"));
+
+
 
 }
 
@@ -44,8 +57,8 @@ AABMonster::AABMonster()
 void AABMonster::BeginPlay()
 {
 	Super::BeginPlay();
-	
 
+	CharacterStat->SetNewLevel(1);
 
 }
 
@@ -54,53 +67,29 @@ void AABMonster::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	UE_LOG(LogTemp, Warning, TEXT("Mon HP:%f"), CharacterStat->Get_HP());
+	
+	
 }
 
 // Called to bind functionality to input
-void AABMonster::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-}
 
 void AABMonster::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 	ABAnim = Cast<UABMonsterAnimInstance>(GetMesh()->GetAnimInstance());
-	//ÃÑ¾Ë¹ß»ç
-	//ABAnim->OnFireBulletDelegate.AddLambda([this]()->void {
-
-	//	if (ABPlayerState->GetCurBullet() > 0)
-	//	{
-
-	//		FTransform fireposition = GetMesh()->GetSocketTransform(TEXT("Muzzle"));
-
-
-	//		AABBullet* Bullet = GetWorld()->SpawnActor<AABBullet>(BulletList, fireposition);
-	//		if (Bullet)
-	//		{
-	//			FVector LaunchDirection = Camera->GetForwardVector();
-
-	//			//FVector LaunchDirection = Camera->GetRightVector(); ÀÌ°É ÃÑÅº¶³¾îÁö´Â°É·ÎÇÏ´Ï ¸ÚÀÖ¾îÁü
-
-	//			Bullet->FireInDirection(LaunchDirection);
-	//		}
-	//		ABPlayerState->SetCurBullet(-1);
-
-	//	}
-
-
-
-
-	//	});
-
-	////ÀçÀåÀü
-	//ABAnim->OnReloadDelegate.AddLambda([this]()->void {
-
-
-	//	bReload = false;
-	//	ABPlayerState->ReLoadBullet(ABPlayerState->GetMaxBullet());
-	//	});
-
+	
+	
+	
 }
+
+float AABMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	float FinalDamage=Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+
+	CharacterStat->Set_HP(-FinalDamage);
+	return FinalDamage;
+}
+
 

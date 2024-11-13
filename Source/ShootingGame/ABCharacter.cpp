@@ -59,10 +59,7 @@ AABCharacter::AABCharacter()
 	BulletList = AABBullet::StaticClass();
 
 	
-	//MaxBulletNum = 30;
-	//BulletNum = MaxBulletNum;
 
-	
 	
 	
 
