@@ -15,7 +15,7 @@ AABBullet::AABBullet()
 	PrimaryActorTick.bCanEverTick = true;
 	Bullet = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BULLET"));
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionComp"));
-
+	Effect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EFFECT"));
 	
 	CollisionComp->SetSphereRadius(13);
 	RootComponent = CollisionComp;
@@ -24,7 +24,7 @@ AABBullet::AABBullet()
 	Bullet->SetCollisionProfileName(TEXT("NoCollision"));
 
 	Bullet->SetupAttachment(RootComponent);
-
+	Effect->SetupAttachment(RootComponent);
 	Bullet->SetRelativeScale3D(FVector(0.25f));
 	
 
@@ -34,7 +34,13 @@ AABBullet::AABBullet()
 		Bullet->SetStaticMesh(SM_BULLET.Object);
 
 	}
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> P_HitBULLET(TEXT("/Script/Engine.ParticleSystem'/Game/ParagonMurdock/FX/Particles/Abilities/Primary/FX/P_PlasmaShot_Hit_Player.P_PlasmaShot_Hit_Player'"));
+	if (P_HitBULLET.Succeeded())
+	{
+		Effect->SetTemplate(P_HitBULLET.Object);
+		Effect->bAutoActivate = false;
 
+	}
 
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MovementComp"));
 	MovementComp->SetUpdatedComponent(CollisionComp);
@@ -45,6 +51,9 @@ AABBullet::AABBullet()
 	
 
 	InitialLifeSpan = 3.0f;
+
+	
+
 	
 }
 
@@ -86,16 +95,29 @@ void AABBullet::FireInDirection(const FVector& ShootDirection)
 void AABBullet::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 
-	
-
-
 	AABMonster* HitMonster = Cast<AABMonster>(OtherActor);
 	if (HitMonster)
 	{
 		FDamageEvent DamageEvent;
+
+		Effect->Activate(true);
 		UE_LOG(LogTemp, Warning, TEXT("HIt"));
 		HitMonster->TakeDamage(10.f, DamageEvent, GetInstigatorController(),this);
-		Destroy();
+
+		
+		Effect->OnSystemFinished.AddDynamic(this, &AABBullet::OnEffectFinished);
+		//Destroy();
 	}
+
+	else
+	{
+		Effect->Activate(true);
+		Effect->OnSystemFinished.AddDynamic(this, &AABBullet::OnEffectFinished);
+	}
+}
+
+void AABBullet::OnEffectFinished(UParticleSystemComponent* PSystem)
+{
+	Destroy();
 }
 

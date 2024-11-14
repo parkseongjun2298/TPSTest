@@ -6,7 +6,6 @@
 #include"ABMonsterAnimInstance.h"
 #include"Components/CapsuleComponent.h"
 #include"ABBullet.h"
-#include"ABMonsterStatComponent.h"
 #include"ABGameInstance.h"
 // Sets default values
 AABMonster::AABMonster()
@@ -27,7 +26,7 @@ AABMonster::AABMonster()
 	}
 
 	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
-	static ConstructorHelpers::FClassFinder<UAnimInstance> Player_Animation(TEXT("/Script/Engine.AnimBlueprint'/Game/Animation/ANI_ABChar.ANI_ABChar_C'"));
+	static ConstructorHelpers::FClassFinder<UABMonsterAnimInstance> Player_Animation(TEXT("/Script/Engine.AnimBlueprint'/Game/Animation/ANI_ABMonster.ANI_ABMonster_C'"));
 	if (Player_Animation.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(Player_Animation.Class);
@@ -67,8 +66,14 @@ void AABMonster::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	UE_LOG(LogTemp, Warning, TEXT("Mon HP:%f"), CharacterStat->Get_HP());
+	//UE_LOG(LogTemp, Warning, TEXT("Mon HP:%f"), CharacterStat->Get_HP());
+	if (CharacterStat->Get_HP() <= 0)
+	{
 	
+			SetDead();
+			
+
+	}
 	
 }
 
@@ -90,6 +95,19 @@ float AABMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, ACon
 
 	CharacterStat->Set_HP(-FinalDamage);
 	return FinalDamage;
+}
+
+void AABMonster::SetDead()
+{
+	bDead = true;
+	ABAnim = Cast<UABMonsterAnimInstance>(GetMesh()->GetAnimInstance());
+	ABAnim->OnDeadDelegate.AddLambda([this]()->void {
+
+		Destroy();
+		});
+
+
+		
 }
 
 

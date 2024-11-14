@@ -43,6 +43,7 @@ public:
 
 	bool bReload = false;
 	
+	bool bDead = false;
 
 	UPROPERTY(EditAnywhere, Category = "Bullet")
 	TSubclassOf<class AABBullet> BulletList;

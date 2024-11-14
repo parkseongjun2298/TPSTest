@@ -26,10 +26,10 @@
     <None Include="..\..\Config\DefaultInput.ini">
       <Filter>Config</Filter>
     </None>
-    <None Include="..\..\Config\DefaultEditor.ini">
+    <None Include="..\..\Config\DefaultEngine.ini">
       <Filter>Config</Filter>
     </None>
-    <None Include="..\..\Config\DefaultEngine.ini">
+    <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
     </None>
     <Filter Include="Platforms">
@@ -53,9 +53,9 @@
     <ClCompile Include="..\..\Source\ShootingGame\ShootingGame.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\ShootingGame\ABMonster.cpp">
+    <ClInclude Include="..\..\Source\ShootingGame\ABMonster.h">
       <Filter>Source\ShootingGame</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClCompile Include="..\..\Source\ShootingGame\ABPlayerState.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
@@ -74,22 +74,43 @@
     <ClCompile Include="..\..\Source\ShootingGame\ABPlayerStatComponent.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABCharacter.h">
+    <ClCompile Include="..\..\Source\ShootingGame\ABMonster.cpp">
       <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
+    </ClCompile>
     <ClInclude Include="..\..\Source\ShootingGame\ABMonsterAnimInstance.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\ShootingGame\ABMonsterAnimInstance.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABMonster.h">
+    <ClCompile Include="..\..\Source\ShootingGame\ABCharacter.cpp">
       <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
+    </ClCompile>
     <ClInclude Include="..\..\Source\ShootingGame\ABMonsterStatComponent.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\ShootingGame\ABMonsterStatComponent.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\ABBullet.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\ABBullet.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\ABCharacter.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ShootingGame\ABAnimInstance.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\ABAnimInstance.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\ABAIController.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\ABAIController.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ShootingGame\ShootingGameCharacter.cpp">
@@ -102,15 +123,6 @@
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ShootingGame\ShootingGame.h">
-      <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\ShootingGame\ABBullet.h">
-      <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\ShootingGame\ABAnimInstance.cpp">
-      <Filter>Source\ShootingGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABAnimInstance.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
     <None Include="..\..\Source\ShootingGame\ShootingGame.Build.cs">
@@ -128,13 +140,7 @@
     <ClInclude Include="..\..\Source\ShootingGame\ABHUDWidget.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\ShootingGame\ABBullet.cpp">
-      <Filter>Source\ShootingGame</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\ShootingGame\ABHUDWidget.cpp">
-      <Filter>Source\ShootingGame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\ShootingGame\ABCharacter.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\ShootingGame\ABPlayerState.h">

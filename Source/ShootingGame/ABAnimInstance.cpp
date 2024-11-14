@@ -22,6 +22,7 @@ void UABAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		Speed = Player->GetVelocity().Size();
 		IsInAir = Player->GetCharacterMovement()->IsFalling();
 		isReload = Player->bReload;
+		isDead = Player->bDead;
 	}
 
 }
