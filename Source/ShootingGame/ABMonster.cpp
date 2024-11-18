@@ -7,6 +7,8 @@
 #include"Components/CapsuleComponent.h"
 #include"ABBullet.h"
 #include"ABGameInstance.h"
+#include"ABAIController.h"
+
 // Sets default values
 AABMonster::AABMonster()
 {
@@ -48,7 +50,8 @@ AABMonster::AABMonster()
 
 	CharacterStat = CreateAbstractDefaultSubobject<UABMonsterStatComponent>(TEXT("CHARACTERSTAT"));
 
-
+	AIControllerClass = AABAIController::StaticClass();
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 
 }
 
@@ -57,8 +60,9 @@ void AABMonster::BeginPlay()
 {
 	Super::BeginPlay();
 
-	CharacterStat->SetNewLevel(1);
-
+	
+		CharacterStat->SetNewLevel(1);
+	
 }
 
 // Called every frame

@@ -51,6 +51,7 @@ public:
 	/*void Reload();
 	void NormalAttackStart();
 	void NormalAttackEnd();*/
-
+	UPROPERTY()
+	class AABAIController* ABAIController;
 	
 };
