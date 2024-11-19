@@ -53,9 +53,6 @@
     <ClCompile Include="..\..\Source\ShootingGame\ShootingGame.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABMonster.h">
-      <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\ShootingGame\ABPlayerState.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
@@ -74,9 +71,9 @@
     <ClCompile Include="..\..\Source\ShootingGame\ABPlayerStatComponent.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\ShootingGame\ABMonster.cpp">
+    <ClInclude Include="..\..\Source\ShootingGame\ABMonster.h">
       <Filter>Source\ShootingGame</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="..\..\Source\ShootingGame\ABMonsterAnimInstance.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
@@ -98,6 +95,9 @@
     <ClCompile Include="..\..\Source\ShootingGame\ABBullet.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ShootingGame\ABMonster.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
     <ClInclude Include="..\..\Source\ShootingGame\ABCharacter.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
@@ -113,21 +113,33 @@
     <ClCompile Include="..\..\Source\ShootingGame\ABAIController.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
+    <None Include="..\..\Source\ShootingGame\ShootingGame.Build.cs">
+      <Filter>Source\ShootingGame</Filter>
+    </None>
     <ClCompile Include="..\..\Source\ShootingGame\ShootingGameCharacter.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\BTTask_FindPatrolPos.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\BTTask_FindPatrolPos.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\BTService_CheckPlayer.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\ShootingGame\ShootingGameCharacter.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\BTService_CheckPlayer.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
     <ClInclude Include="..\..\Source\ShootingGame\ABGameMode.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ShootingGame\ShootingGame.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
-    <None Include="..\..\Source\ShootingGame\ShootingGame.Build.cs">
-      <Filter>Source\ShootingGame</Filter>
-    </None>
     <ClCompile Include="..\..\Source\ShootingGame\ABGameMode.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>

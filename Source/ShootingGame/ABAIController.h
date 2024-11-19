@@ -4,6 +4,7 @@
 
 #include "ShootingGame.h"
 #include "AIController.h"
+#include "Perception/AIPerceptionComponent.h"
 #include "ABAIController.generated.h"
 
 /**
@@ -19,6 +20,11 @@ public:
 	virtual void OnPossess(APawn* InPawn)override;
 	virtual void OnUnPossess()override;
 
+	static const FName HomePosKey;
+	static const FName PatrolPosKey;
+
+	UPROPERTY(VisibleDefaultsOnly, Category = AI)
+	class UAISenseConfig_Sight* SightConfig;
 private:
 	void OnRepeatTimer();
 	FTimerHandle OnRepeatTimerHandle;
@@ -30,6 +36,11 @@ private:
 	class UBlackboardData* BBAsset;
 
 	
+	
 
+	UFUNCTION()
+	void OnTargetPerceived(AActor* Actor, FAIStimulus Stimulus);
+
+	
 	
 };

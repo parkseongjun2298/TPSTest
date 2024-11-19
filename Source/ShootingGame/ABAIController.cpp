@@ -7,6 +7,13 @@
 #include"BehaviorTree/BehaviorTree.h"
 #include"BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BlackboardComponent.h"
+
+#include  "Perception/AISenseConfig_Sight.h"
+
+const FName AABAIController::HomePosKey(TEXT("HOMEPOS"));
+const FName AABAIController::PatrolPosKey(TEXT("PATROLPOS"));
+
+
 AABAIController::AABAIController()
 {
 	static ConstructorHelpers::FObjectFinder<UBlackboardData>BBObject(TEXT("/Script/AIModule.BlackboardData'/Game/AI/BB_ABMonster.BB_ABMonster'"));
@@ -22,7 +29,25 @@ AABAIController::AABAIController()
 		BTAsset = BTObject.Object;
 	}
 
-	UE_LOG(LogTemp, Log, TEXT("ABAIController  called!"));
+	
+	PerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("PerceptionComponent"));
+	SetPerceptionComponent(*PerceptionComponent);
+	
+	// 시야 감각 설정
+	SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("SightConfig"));
+	
+	SightConfig->SightRadius = 2000.0f;           // 시야 거리
+	SightConfig->LoseSightRadius = 2500.0f;       // 감지 해제 거리
+	SightConfig->PeripheralVisionAngleDegrees = 90.0f; // 시야각
+	SightConfig->DetectionByAffiliation.bDetectEnemies = true;
+	SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
+	SightConfig->DetectionByAffiliation.bDetectFriendlies = false;
+
+	PerceptionComponent->ConfigureSense(*SightConfig);
+	PerceptionComponent->SetDominantSense(SightConfig->GetSenseImplementation());
+
+	PerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &AABAIController::OnTargetPerceived);
+
 }
 
 void AABAIController::OnPossess(APawn* InPawn)
@@ -35,11 +60,13 @@ void AABAIController::OnPossess(APawn* InPawn)
 
 	if (UseBlackboard(BBAsset, BlackboardComp))
 	{
+
+		BlackboardComp->SetValueAsVector(HomePosKey, InPawn->GetActorLocation());
 		if (!RunBehaviorTree(BTAsset))
 		{
 			UE_LOG(LogTemp, Warning,TEXT("Aicontroller no run."));
 		}
-		UE_LOG(LogTemp, Warning, TEXT("Aicontroller run"));
+		
 	}
 
 
@@ -66,5 +93,19 @@ void AABAIController::OnRepeatTimer()
 
 
 		
+	}
+}
+
+void AABAIController::OnTargetPerceived(AActor* Actor, FAIStimulus Stimulus)
+{
+
+	if (Stimulus.WasSuccessfullySensed())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player detected: %s"), *Actor->GetName());
+		// Behavior Tree에서 사용할 Blackboard 키 설정 가능
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player lost: %s"), *Actor->GetName());
 	}
 }
