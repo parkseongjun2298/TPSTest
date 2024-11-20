@@ -12,7 +12,7 @@
 
 const FName AABAIController::HomePosKey(TEXT("HOMEPOS"));
 const FName AABAIController::PatrolPosKey(TEXT("PATROLPOS"));
-
+const FName AABAIController::TargetKey(TEXT("Target"));
 
 AABAIController::AABAIController()
 {
@@ -35,17 +35,18 @@ AABAIController::AABAIController()
 	
 	// 시야 감각 설정
 	SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("SightConfig"));
-	
-	SightConfig->SightRadius = 2000.0f;           // 시야 거리
-	SightConfig->LoseSightRadius = 2500.0f;       // 감지 해제 거리
-	SightConfig->PeripheralVisionAngleDegrees = 90.0f; // 시야각
-	SightConfig->DetectionByAffiliation.bDetectEnemies = true;
-	SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
-	SightConfig->DetectionByAffiliation.bDetectFriendlies = false;
+	if (SightConfig)
+	{
+		SightConfig->SightRadius = 800.f;           // 시야 거리
+		SightConfig->LoseSightRadius = 1200.f;       // 감지 해제 거리
+		SightConfig->PeripheralVisionAngleDegrees = 90.0f; // 시야각
+		SightConfig->DetectionByAffiliation.bDetectEnemies = true;
+		SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
+		SightConfig->DetectionByAffiliation.bDetectFriendlies = false;
 
-	PerceptionComponent->ConfigureSense(*SightConfig);
-	PerceptionComponent->SetDominantSense(SightConfig->GetSenseImplementation());
-
+		PerceptionComponent->ConfigureSense(*SightConfig);
+		PerceptionComponent->SetDominantSense(SightConfig->GetSenseImplementation());
+	}
 	PerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &AABAIController::OnTargetPerceived);
 
 }
@@ -66,6 +67,8 @@ void AABAIController::OnPossess(APawn* InPawn)
 		{
 			UE_LOG(LogTemp, Warning,TEXT("Aicontroller no run."));
 		}
+
+		
 		
 	}
 
@@ -99,13 +102,15 @@ void AABAIController::OnRepeatTimer()
 void AABAIController::OnTargetPerceived(AActor* Actor, FAIStimulus Stimulus)
 {
 
-	if (Stimulus.WasSuccessfullySensed())
+	if (UBlackboardComponent* BlackboardComp = GetBlackboardComponent())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Player detected: %s"), *Actor->GetName());
-		// Behavior Tree에서 사용할 Blackboard 키 설정 가능
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Player lost: %s"), *Actor->GetName());
+		if (Stimulus.WasSuccessfullySensed())
+		{
+			BlackboardComp->SetValueAsObject(TargetKey, Actor);
+		}
+		else
+		{
+			BlackboardComp->ClearValue(TargetKey);
+		}
 	}
 }

@@ -2,11 +2,13 @@
 
 
 #include "BTService_CheckPlayer.h"
-#include "AIController.h"
+#include "ABAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/Actor.h"
 #include "Perception/AIPerceptionComponent.h"
 #include  "Perception/AISenseConfig_Sight.h"
+#include"ABCharacter.h"
+
 UBTService_CheckPlayer::UBTService_CheckPlayer()
 {
 	NodeName = TEXT("CHECKPLAYER");
@@ -35,11 +37,12 @@ void UBTService_CheckPlayer::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* 
         Perception->GetCurrentlyPerceivedActors(UAISense_Sight::StaticClass(), PerceivedActors);
         if (PerceivedActors.Num() > 0)
         {
-            BlackboardComp->SetValueAsObject(PlayerKey, PerceivedActors[0]);
+            BlackboardComp->SetValueAsObject(AABAIController::TargetKey, PerceivedActors[0]);
         }
         else
         {
-            BlackboardComp->ClearValue(PlayerKey);
+            BlackboardComp->ClearValue(AABAIController::TargetKey);
+            return;
         }
     }
 }

@@ -22,7 +22,7 @@ public:
 
 	static const FName HomePosKey;
 	static const FName PatrolPosKey;
-
+	static const FName TargetKey;
 	UPROPERTY(VisibleDefaultsOnly, Category = AI)
 	class UAISenseConfig_Sight* SightConfig;
 private:

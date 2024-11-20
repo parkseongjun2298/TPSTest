@@ -198,8 +198,8 @@ void AABCharacter::Zoom()
 	++iZoomCount;
 	if (iZoomCount % 2 == 1)
 	{
-		
-		SpringArm->TargetArmLength = -400.f;
+		SpringArm->TargetArmLength = 300.f;
+		//SpringArm->TargetArmLength = FMath::FInterpTo(SpringArm->TargetArmLength, 300.f, DeltaSeconds, 5.f);
 
 	}
 	else

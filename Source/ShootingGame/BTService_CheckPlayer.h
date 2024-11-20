@@ -19,6 +19,5 @@ public:
 protected:
     virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 
-private:
-    FName PlayerKey = "Player"; // Blackboard에서 사용할 키
+
 };
