@@ -53,6 +53,9 @@
     <ClCompile Include="..\..\Source\ShootingGame\ShootingGame.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\BTTask_Attack.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\ShootingGame\ABPlayerState.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
@@ -132,6 +135,15 @@
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\ShootingGame\BTService_CheckPlayer.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\BTDecorator_CanAttack.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\BTDecorator_CanAttack.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ShootingGame\BTTask_Attack.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\ShootingGame\ABGameMode.h">

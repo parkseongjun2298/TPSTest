@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "ABMonster.generated.h"
 
+DECLARE_MULTICAST_DELEGATE(FOnAttackEndDelegate);
 UCLASS()
 class SHOOTINGGAME_API AABMonster : public ACharacter
 {
@@ -43,7 +44,7 @@ public:
 
 	virtual float TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)override;
 
-	
+	void Attack();
 
 	bool bDead = false;
 
@@ -54,4 +55,7 @@ public:
 	UPROPERTY()
 	class AABAIController* ABAIController;
 	
+
+
+	FOnAttackEndDelegate OnAttackEnd;
 };

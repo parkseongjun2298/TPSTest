@@ -7,7 +7,7 @@
 #include"BehaviorTree/BehaviorTree.h"
 #include"BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BlackboardComponent.h"
-
+#include "DrawDebugHelpers.h"
 #include  "Perception/AISenseConfig_Sight.h"
 
 const FName AABAIController::HomePosKey(TEXT("HOMEPOS"));
@@ -37,7 +37,7 @@ AABAIController::AABAIController()
 	SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("SightConfig"));
 	if (SightConfig)
 	{
-		SightConfig->SightRadius = 800.f;           // 시야 거리
+		SightConfig->SightRadius = 1000.f;           // 시야 거리
 		SightConfig->LoseSightRadius = 1200.f;       // 감지 해제 거리
 		SightConfig->PeripheralVisionAngleDegrees = 90.0f; // 시야각
 		SightConfig->DetectionByAffiliation.bDetectEnemies = true;
@@ -72,8 +72,7 @@ void AABAIController::OnPossess(APawn* InPawn)
 		
 	}
 
-
-
+	
 }
 
 void AABAIController::OnUnPossess()
@@ -113,4 +112,23 @@ void AABAIController::OnTargetPerceived(AActor* Actor, FAIStimulus Stimulus)
 			BlackboardComp->ClearValue(TargetKey);
 		}
 	}
+
+	FVector Location = GetPawn()->GetActorLocation();
+	// SightRadius
+	DrawDebugSphere(GetWorld(), Location, SightConfig->SightRadius, 32, FColor::Green, false, 1.0f);
+
+	// LoseSightRadius
+	DrawDebugSphere(GetWorld(), Location, SightConfig->LoseSightRadius, 32, FColor::Red, false, 1.0f);
+
+	// PeripheralVisionAngle
+	float HalfFOV = FMath::DegreesToRadians(SightConfig->PeripheralVisionAngleDegrees / 2.0f);
+	FVector Forward = GetPawn()->GetActorForwardVector();
+	FVector LeftBoundary = Forward.RotateAngleAxis(SightConfig->PeripheralVisionAngleDegrees / 2, FVector::UpVector);
+	FVector RightBoundary = Forward.RotateAngleAxis(-SightConfig->PeripheralVisionAngleDegrees / 2, FVector::UpVector);
+
+	DrawDebugLine(GetWorld(), Location, Location + LeftBoundary * SightConfig->SightRadius, FColor::Blue, false, 1.0f);
+	DrawDebugLine(GetWorld(), Location, Location + RightBoundary * SightConfig->SightRadius, FColor::Blue, false, 1.0f);
+
+
+
 }

@@ -88,10 +88,12 @@ void AABMonster::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 	ABAnim = Cast<UABMonsterAnimInstance>(GetMesh()->GetAnimInstance());
-	
-	
+
+	//ÃÑ¾Ë¹ß»ç
+	ABAnim->OnFireBulletDelegate.AddUObject(this,&AABMonster::Attack);
 	
 }
+
 
 float AABMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
@@ -99,6 +101,28 @@ float AABMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, ACon
 
 	CharacterStat->Set_HP(-FinalDamage);
 	return FinalDamage;
+}
+
+void AABMonster::Attack()
+{
+
+	bAttackMode = true;
+	FTransform fireposition = GetMesh()->GetSocketTransform(TEXT("Muzzle"));
+
+
+	AABBullet* Bullet = GetWorld()->SpawnActor<AABBullet>(BulletList, fireposition);
+	if (Bullet)
+	{
+		FVector LaunchDirection = GetActorForwardVector();
+
+
+
+		Bullet->FireInDirection(LaunchDirection);
+	}
+
+	OnAttackEnd.Broadcast();
+	//bAttackMode = false;
+
 }
 
 void AABMonster::SetDead()
