@@ -39,7 +39,7 @@ AABAIController::AABAIController()
 	{
 		SightConfig->SightRadius = 1000.f;           // 시야 거리
 		SightConfig->LoseSightRadius = 1200.f;       // 감지 해제 거리
-		SightConfig->PeripheralVisionAngleDegrees = 90.0f; // 시야각
+		SightConfig->PeripheralVisionAngleDegrees = 70.0f; // 시야각
 		SightConfig->DetectionByAffiliation.bDetectEnemies = true;
 		SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
 		SightConfig->DetectionByAffiliation.bDetectFriendlies = false;

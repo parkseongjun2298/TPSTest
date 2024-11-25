@@ -3,7 +3,7 @@
 
 #include "BTDecorator_CanAttack.h"
 #include"ABAIController.h"
-#include"ABMonster.h"
+#include"ABCharacter.h"
 #include"BehaviorTree/BlackboardComponent.h"
 
 UBTDecorator_CanAttack::UBTDecorator_CanAttack()
@@ -18,7 +18,7 @@ bool UBTDecorator_CanAttack::CalculateRawConditionValue(UBehaviorTreeComponent& 
 	auto ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
 	if (nullptr == ControllingPawn)
 		return false;
-	auto Target = Cast<AABMonster>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AABAIController::TargetKey));
+	auto Target = Cast<AABCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AABAIController::TargetKey));
 	if (nullptr == Target)
 		return false;
 

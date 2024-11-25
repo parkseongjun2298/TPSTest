@@ -53,7 +53,7 @@
     <ClCompile Include="..\..\Source\ShootingGame\ShootingGame.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\BTTask_Attack.h">
+    <ClInclude Include="..\..\Source\ShootingGame\ABMonster.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\ShootingGame\ABPlayerState.cpp">
@@ -74,9 +74,9 @@
     <ClCompile Include="..\..\Source\ShootingGame\ABPlayerStatComponent.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\ShootingGame\ABMonster.h">
+    <ClCompile Include="..\..\Source\ShootingGame\ABMonster.cpp">
       <Filter>Source\ShootingGame</Filter>
-    </ClInclude>
+    </ClCompile>
     <ClInclude Include="..\..\Source\ShootingGame\ABMonsterAnimInstance.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
@@ -98,9 +98,9 @@
     <ClCompile Include="..\..\Source\ShootingGame\ABBullet.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\ShootingGame\ABMonster.cpp">
+    <ClInclude Include="..\..\Source\ShootingGame\BTTask_Attack.h">
       <Filter>Source\ShootingGame</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="..\..\Source\ShootingGame\ABCharacter.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
@@ -144,6 +144,12 @@
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ShootingGame\BTTask_Attack.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\BTTask_TurnToTarget.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\BTTask_TurnToTarget.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\ShootingGame\ABGameMode.h">
