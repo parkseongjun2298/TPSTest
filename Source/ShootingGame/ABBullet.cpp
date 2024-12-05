@@ -7,7 +7,7 @@
 #include"ABMonster.h"
 #include "GameFramework/DamageType.h"
 #include "Engine/DamageEvents.h"
-
+#include"ABCharacter.h"
 // Sets default values
 AABBullet::AABBullet()
 {
@@ -50,7 +50,7 @@ AABBullet::AABBullet()
 	MovementComp->bRotationFollowsVelocity = true;
 	
 
-	InitialLifeSpan = 3.0f;
+	InitialLifeSpan = 1.0f;
 
 	
 
@@ -96,16 +96,22 @@ void AABBullet::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* 
 {
 
 	AABMonster* HitMonster = Cast<AABMonster>(OtherActor);
-	if (HitMonster)
+
+	AABCharacter* HitPlayer = Cast<AABCharacter>(OtherActor);
+	if (HitMonster|| HitPlayer)
 	{
 		FDamageEvent DamageEvent;
 
 		Effect->Activate(true);
-		UE_LOG(LogTemp, Warning, TEXT("HIt"));
-		HitMonster->TakeDamage(10.f, DamageEvent, GetInstigatorController(),this);
-
+		//UE_LOG(LogTemp, Warning, TEXT("HIt"));
+		if(HitMonster)
+			HitMonster->TakeDamage(10.f, DamageEvent, GetInstigatorController(),this);
+		if (HitPlayer)
+			HitPlayer->TakeDamage(10.f, DamageEvent, GetInstigatorController(), this);
 		
 		Effect->OnSystemFinished.AddDynamic(this, &AABBullet::OnEffectFinished);
+		
+		
 		//Destroy();
 	}
 
@@ -114,6 +120,14 @@ void AABBullet::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* 
 		Effect->Activate(true);
 		Effect->OnSystemFinished.AddDynamic(this, &AABBullet::OnEffectFinished);
 	}
+
+
+
+
+
+
+
+
 }
 
 void AABBullet::OnEffectFinished(UParticleSystemComponent* PSystem)

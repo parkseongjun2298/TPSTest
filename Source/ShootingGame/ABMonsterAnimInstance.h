@@ -11,6 +11,7 @@ DECLARE_MULTICAST_DELEGATE(FOnFireBulletDelegate);
 DECLARE_MULTICAST_DELEGATE(FOnReloadDelegate);
 DECLARE_MULTICAST_DELEGATE(FOnDeadDelegate);
 
+DECLARE_MULTICAST_DELEGATE(FOnAttackEndDelegate);
 /**
  * 
  */
@@ -47,9 +48,12 @@ private:
 
 	UFUNCTION()
 	void AnimNotify_Dead();
+
+	UFUNCTION()
+	void AnimNotify_AttackEnd();
 public:
 	FOnFireBulletDelegate OnFireBulletDelegate;
 	FOnReloadDelegate OnReloadDelegate;
 	FOnDeadDelegate OnDeadDelegate;
-	
+	FOnAttackEndDelegate OnAttackEndDelegate;
 };

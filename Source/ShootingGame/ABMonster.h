@@ -6,7 +6,6 @@
 #include "GameFramework/Character.h"
 #include "ABMonster.generated.h"
 
-DECLARE_MULTICAST_DELEGATE(FOnAttackEndDelegate);
 UCLASS()
 class SHOOTINGGAME_API AABMonster : public ACharacter
 {
@@ -55,7 +54,7 @@ public:
 	UPROPERTY()
 	class AABAIController* ABAIController;
 	
+	
 
-
-	FOnAttackEndDelegate OnAttackEnd;
+	
 };

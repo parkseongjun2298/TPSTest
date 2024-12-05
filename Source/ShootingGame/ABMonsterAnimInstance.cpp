@@ -46,3 +46,8 @@ void UABMonsterAnimInstance::AnimNotify_Dead()
 {
 	OnDeadDelegate.Broadcast();
 }
+
+void UABMonsterAnimInstance::AnimNotify_AttackEnd()
+{
+	OnAttackEndDelegate.Broadcast();
+}

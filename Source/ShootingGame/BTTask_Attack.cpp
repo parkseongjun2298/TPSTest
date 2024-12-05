@@ -18,14 +18,19 @@ EBTNodeResult::Type UBTTask_Attack::ExecuteTask(UBehaviorTreeComponent& Ownercom
 	auto ABMonster = Cast<AABMonster>(Ownercomp.GetAIOwner()->GetPawn());
 	if (nullptr == ABMonster)
 		return EBTNodeResult::Failed;
-	ABMonster->Attack();
+	
 	IsAttaking = true;
-	ABMonster->OnAttackEnd.AddLambda([this]()->void {
+
+	
+		ABMonster->Attack();
+
+		
+	/*ABMonster->OnAttackEndDelegate.AddLambda([this]()->void {
 
 		IsAttaking = false;
 
 		
-		});
+		});*/
 	
 	
 	
@@ -44,9 +49,9 @@ void UBTTask_Attack::TickTask(UBehaviorTreeComponent& Ownercomp, uint8* NodeMemo
 	if (nullptr == ABMonster)
 		return;
 
-	if (!IsAttaking)
+	if (!ABMonster->bAttackMode)
 	{
 		FinishLatentTask(Ownercomp, EBTNodeResult::Succeeded);
-		ABMonster->bAttackMode = false;
+		
 	}
 }
