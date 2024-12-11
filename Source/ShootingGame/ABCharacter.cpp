@@ -61,7 +61,7 @@ AABCharacter::AABCharacter()
 	
 
 	
-	
+	Tags.Add(TEXT("Player"));
 
 	
 }

@@ -152,6 +152,12 @@
     <ClCompile Include="..\..\Source\ShootingGame\BTTask_TurnToTarget.cpp">
       <Filter>Source\ShootingGame</Filter>
     </ClCompile>
+    <ClInclude Include="..\..\Source\ShootingGame\ABPortal.h">
+      <Filter>Source\ShootingGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ShootingGame\ABPortal.cpp">
+      <Filter>Source\ShootingGame</Filter>
+    </ClCompile>
     <ClInclude Include="..\..\Source\ShootingGame\ABGameMode.h">
       <Filter>Source\ShootingGame</Filter>
     </ClInclude>
